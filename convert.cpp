@@ -19,28 +19,31 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    // chosen options
+    // @concerns input format, argv, std::string_view, option[out]
+    std::string_view option(argv[1]);
+
     // text to convert
     // @concerns input format, argv, std::string, text[out]
     std::string text(argv[2]);
 
     // convert the string according to the option
-    // @concerns input format, argv, std::string
-    // @concerns std::string_view, "--upper", "--lower"
+    // @concerns "--upper", "--lower"
     // @concerns std::toupper(), std::tolower(), iteration
-    // @concerns error handling, std::cerr, text
-    if (std::string_view(argv[1]) == "--upper") {
+    // @concerns error handling, std::cerr, text, option
+    if (option == "--upper") {
 
         for (auto pc = text.begin(); pc != text.end(); ++pc)
             *pc = std::toupper(*pc);
 
-    } else if (std::string_view(argv[1]) == "--lower") {
+    } else if (option == "--lower") {
 
         for (auto pc = text.begin(); pc != text.end(); ++pc)
             *pc = std::tolower(*pc);
 
     } else {
 
-        std::cerr << "Invalid conversion option: " << argv[1] << '\n';
+        std::cerr << "Invalid conversion option: " << option << '\n';
         return 1;
     }
 
