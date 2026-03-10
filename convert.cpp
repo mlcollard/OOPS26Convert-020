@@ -10,6 +10,18 @@
 #include <string_view>
 #include <cctype>
 
+// convert to upper case
+// @concerns std::toupper(), toUpper[out]
+void toUpper(char& c) {
+    c = std::toupper(c);
+}
+
+// convert to lower case
+// @concerns std::tolower(), toLower[out]
+void toLower(char& c) {
+    c = std::tolower(c);
+}
+
 int main(int argc, char* argv[]) {
 
     // requires conversion option and string
@@ -29,17 +41,17 @@ int main(int argc, char* argv[]) {
 
     // convert the string according to the option
     // @concerns "--upper", "--lower"
-    // @concerns std::toupper(), std::tolower(), iteration
+    // @concerns toUpper(), toLower(), iteration
     // @concerns error handling, std::cerr, text, option
     if (option == "--upper") {
 
         for (auto pc = text.begin(); pc != text.end(); ++pc)
-            *pc = std::toupper(*pc);
+            toUpper(*pc);
 
     } else if (option == "--lower") {
 
         for (auto pc = text.begin(); pc != text.end(); ++pc)
-            *pc = std::tolower(*pc);
+            toLower(*pc);
 
     } else {
 
