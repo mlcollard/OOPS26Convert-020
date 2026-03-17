@@ -49,24 +49,15 @@ int main(int argc, char* argv[]) {
     // @concerns input format, argv, std::string, text[out]
     std::string text(argv[2]);
 
-    // convert the string according to the option
-    // @concerns "--upper", "--lower"
-    // @concerns toUpper(), toLower()
-    // @concerns error handling, std::cerr, option, conversion[out]
-    Convert conversion = nullptr;
-    if (option == "--upper") {
-
-        conversion = toUpper;
-
-    } else if (option == "--lower") {
-
-        conversion = toLower;
-
-    } else {
-
+    // figure out, according to the option, which conversion to use
+    // @concern option, optionConversion, conversion[out]
+    // @concern error handling, std::cerr
+    auto conversionEntry = optionConversion.find(option);
+    if (conversionEntry == optionConversion.end()) {
         std::cerr << "Invalid conversion option: " << option << '\n';
         return 1;
     }
+    auto conversion = conversionEntry->second;
 
     // convert using the current conversion
     // @concerns text, conversion, std::for_each
